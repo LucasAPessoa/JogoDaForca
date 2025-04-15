@@ -13,22 +13,23 @@ namespace Exibir
         public static void Menu()
         {
             string titulo = @"
-███████╗░█████╗░██████╗░░█████╗░░█████╗░
-██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗
-█████╗░░██║░░██║██████╔╝██║░░╚═╝███████║
-██╔══╝░░██║░░██║██╔══██╗██║░░██╗██╔══██║
-██║░░░░░╚█████╔╝██║░░██║╚█████╔╝██║░░██║
+ ███████╗░█████╗░██████╗░░█████╗░░█████╗░
+ ██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗
+ █████╗░░██║░░██║██████╔╝██║░░╚═╝███████║
+ ██╔══╝░░██║░░██║██╔══██╗██║░░██╗██╔══██║
+ ██║░░░░░╚█████╔╝██║░░██║╚█████╔╝██║░░██║
 ╚═╝░░░░░░╚════╝░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝";
+
 
             bool continuar = true;
             while (continuar)
             {
                 Console.Clear();
-                
-                ConsoleWriteCenter(titulo);
+
+                EscreverCentralizado(titulo);
                 Console.WriteLine();
-                
-                ShowMenu();
+
+                ExibirOpcoesMenu();
 
                 
                 Console.Write("Digite o número da opção: ");
@@ -39,17 +40,17 @@ namespace Exibir
                 {
                     case "1":
 
-                        Jogo.Dificuldade(1);
+                        Jogo.SelecionarDificuldade(1);
                         Thread.Sleep(3000);
                         break;
                     case "2":
 
-                        Jogo.Dificuldade(2);
+                        Jogo.SelecionarDificuldade(2);
                         Thread.Sleep(3000);
                         break;
                     case "3":
                         
-                        Jogo.Dificuldade(3);
+                        Jogo.SelecionarDificuldade(3);
                         Thread.Sleep(3000);
                         break;
                     case "4":
@@ -69,7 +70,7 @@ namespace Exibir
         }
 
 
-        public static void ConsoleWriteCenter(string texto)
+        public static void EscreverCentralizado(string texto)
         {
             string[] linhas = texto.Split("\n", StringSplitOptions.None);
 
@@ -82,7 +83,7 @@ namespace Exibir
             }
         }
 
-        public static void ShowMenu()
+        public static void ExibirOpcoesMenu()
         {
             string[] opcoesMenu = {
             "1. Fácil",

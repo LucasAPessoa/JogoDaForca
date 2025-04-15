@@ -56,7 +56,7 @@ namespace JogoDoMeEnforca
 
 
 
-        public static void Dificuldade(int dificuldade)
+        public static void SelecionarDificuldade(int dificuldade)
         {
 
             switch (dificuldade)
@@ -86,10 +86,10 @@ namespace JogoDoMeEnforca
             string palavraSecreta = palavraAtual.Palavra.ToUpper();
             string dica = palavraAtual.Dica;
 
-            teste(palavraSecreta, dica);
+            Jogar(palavraSecreta, dica);
         }
 
-        public static void teste(string PalavraSecreta, string Dica)
+        public static void Jogar(string PalavraSecreta, string Dica)
         {
             char[] letrasDescobertas = new char[PalavraSecreta.Length];
             List<char> letrasIncorretas = new List<char>();
@@ -105,35 +105,42 @@ namespace JogoDoMeEnforca
             while (!jogoTerminado)
             {
                 Console.Clear();
-                Console.WriteLine($"Dica: {Dica}\n");
-                forca(tentativasRestantes);
+                Console.WriteLine($"Dica: {(string.IsNullOrEmpty(Dica) ? "Sem dica disponível" : Dica)}\n");
+                ExibirForca(tentativasRestantes);
                 Console.WriteLine("\nPalavra: " + string.Join(" ", letrasDescobertas));
                 Console.WriteLine("\nLetras incorretas: " + string.Join(", ", letrasIncorretas));
                 Console.WriteLine($"Tentativas restantes: {tentativasRestantes}");
 
                 Console.Write("\nDigite uma letra: ");
 
-                string letra;
-                char letraChar;
+                char letra;
 
-                try
+
+                while (true)
                 {
-                    letra = Console.ReadLine().ToUpper();
-                    letraChar = char.Parse(letra);
-                }
-                catch
-                {
-                    Console.WriteLine("ERRO");
-                    continue;
+                    string input = (Console.ReadLine() ?? "").Trim();
+
+                    if (input.Length == 1 && char.IsLetter(input[0]))
+                    {
+                        letra = char.ToUpper(input[0]);
+                        break;
+                    }
+                    else
+                    {
+                        Console.SetCursorPosition(0, Console.CursorTop - 1);
+                        Console.Write(new string(' ', Console.WindowWidth));
+                        Console.SetCursorPosition(0, Console.CursorTop);
+                        Console.Write("Entrada inválida. Tente novamente: ");
+                    }
                 }
 
-                if (PalavraSecreta.Contains(letraChar))
+                if (PalavraSecreta.Contains(letra))
                 {
                     for (int i = 0; i < PalavraSecreta.Length; i++)
                     {
-                        if (PalavraSecreta[i] == letraChar)
+                        if (PalavraSecreta[i] == letra)
                         {
-                            letrasDescobertas[i] = letraChar;
+                            letrasDescobertas[i] = letra;
                         }
                     }
 
@@ -147,9 +154,9 @@ namespace JogoDoMeEnforca
                 }
                 else
                 {
-                    if (!letrasIncorretas.Contains(letraChar))
+                    if (!letrasIncorretas.Contains(letra))
                     {
-                        letrasIncorretas.Add(letraChar);
+                        letrasIncorretas.Add(letra);
                         tentativasRestantes--;
                     }
 
@@ -170,7 +177,7 @@ namespace JogoDoMeEnforca
         
 
 
-        public static void forca(int tentativasRestantes)
+        public static void ExibirForca(int tentativasRestantes)
         {
             switch (tentativasRestantes)
             {
